@@ -85,8 +85,8 @@ generateCsvItems itemJson = Vector.fromList []
 encodeCsvItems :: Vector CsvItem -> ByteString
 encodeCsvItems = encodeDefaultOrderedByName . Foldable.toList
 
-encodeCsvItemsToFile :: FilePath -> Vector CsvItem -> IO ()
-encodeCsvItemsToFile filePath =
+writeCsvItemsToFile :: FilePath -> Vector CsvItem -> IO ()
+writeCsvItemsToFile filePath =
   BS.writeFile filePath . encodeCsvItems
 
 -- read, process, and print out info from the data.json
@@ -97,7 +97,7 @@ someFunc = do
   let d = processJsonData (eitherDecode f :: Either String JsonItems)
   print d
   let csvItems = generateCsvItems d
-  encodeCsvItemsToFile "items.csv" csvItems
+  writeCsvItemsToFile "items.csv" csvItems
 --let jsonData = decode f :: Maybe JsonList
 --putStrLn (encode jsonData)
 --let j = eitherDecode f
