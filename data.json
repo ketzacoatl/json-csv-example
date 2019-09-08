@@ -1,5 +1,7 @@
 [
   { "foo": 1, "bar": "baz"},
   { "foo": 3, "bar": "foo-baz"},
-  { "foo": 4, "bar": "foo foo"}
+  { "foo": 44, "bar": "foo foo"},
+  { "foo": 62, "bar": "too cute"},
+  { "foo": 4, "bar": "mooooooo"}
 ]
