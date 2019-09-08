@@ -80,7 +80,8 @@ processJsonData (Right x) = x
 
 -- IMPLEMENT
 generateCsvItems :: JsonItems -> Vector CsvItem
-generateCsvItems itemJson = Vector.fromList []
+generateCsvItems itemJson = Vector.fromList $ csvItems itemJson
+  where csvItems json = []
 
 encodeCsvItems :: Vector CsvItem -> ByteString
 encodeCsvItems = encodeDefaultOrderedByName . Foldable.toList
