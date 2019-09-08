@@ -78,10 +78,19 @@ processJsonData :: Either a b -> b
 processJsonData (Left _) = error "unable to parse data"
 processJsonData (Right x) = x
 
+generateCsvItem :: JsonItem -> CsvItem
+generateCsvItem i = CsvItem
+  { cItemQux = "QUX"
+  , cItemBar = "BAR"
+  , cItemFoobar = 10
+  }
+
 -- IMPLEMENT
-generateCsvItems itemJson = Vector.fromList $ csvItems itemJson
-  where csvItems json = []
 generateCsvItems :: [JsonItem] -> Vector CsvItem
+generateCsvItems items = Vector.fromList $ generateCsvItemList items
+  where generateCsvItemList items = map generateCsvItem items
+--    where generateCsvItem item = do
+    
 
 encodeCsvItems :: Vector CsvItem -> ByteString
 encodeCsvItems = encodeDefaultOrderedByName . Foldable.toList
