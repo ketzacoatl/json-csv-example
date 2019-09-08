@@ -41,8 +41,8 @@ data JsonItem = JsonItem
   , bar :: Text
   } deriving (Show, Generic)
 
-data JsonItems = JsonItems [JsonItem]
-  deriving (Show, Generic)
+--data JsonItems = JsonItems [JsonItem]
+--  deriving (Show, Generic)
 
 data CsvItem = CsvItem
   { cItemQux :: Text
@@ -54,8 +54,8 @@ data CsvItem = CsvItem
 instance FromJSON JsonItem
 instance ToJSON   JsonItem
 
-instance FromJSON JsonItems
-instance ToJSON   JsonItems
+--instance FromJSON JsonItems
+--instance ToJSON   JsonItems
 
 instance CSV.DefaultOrdered CsvItem where
   headerOrder _ =
@@ -79,9 +79,9 @@ processJsonData (Left _) = error "unable to parse data"
 processJsonData (Right x) = x
 
 -- IMPLEMENT
-generateCsvItems :: JsonItems -> Vector CsvItem
 generateCsvItems itemJson = Vector.fromList $ csvItems itemJson
   where csvItems json = []
+generateCsvItems :: [JsonItem] -> Vector CsvItem
 
 encodeCsvItems :: Vector CsvItem -> ByteString
 encodeCsvItems = encodeDefaultOrderedByName . Foldable.toList
@@ -95,7 +95,7 @@ someFunc :: IO ()
 someFunc = do
   f <- BS.readFile "data.json"
   print f
-  let d = processJsonData (eitherDecode f :: Either String JsonItems)
+  let d = processJsonData (eitherDecode f :: Either String [JsonItem])
   print d
   let csvItems = generateCsvItems d
   writeCsvItemsToFile "items.csv" csvItems
