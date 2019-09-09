@@ -24,6 +24,7 @@ import qualified Data.Foldable as Foldable
 import           Data.Vector (Vector)
 import qualified Data.Vector as Vector
 import           Data.Text (Text)
+import qualified Data.Text as T
 import           GHC.Generics (Generic)
 import           Control.Monad.IO.Class (liftIO)
 
@@ -80,9 +81,9 @@ processJsonData (Right x) = x
 
 generateCsvItem :: JsonItem -> CsvItem
 generateCsvItem i = CsvItem
-  { cItemQux = "QUX"
-  , cItemBar = "BAR"
-  , cItemFoobar = 10
+  { cItemQux = "Qux " -- ++ (i bar)
+  , cItemBar = bar i
+  , cItemFoobar = foo i
   }
 
 -- IMPLEMENT
